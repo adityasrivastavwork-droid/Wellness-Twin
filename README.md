@@ -153,6 +153,17 @@ NutriTwin is a wellness-first nutrition and habit app that builds a digital twin
 
 ## Onboarding Flow (Recommended: 6–8 screens, <3 minutes)
 
+**Implementation status**
+- [x] Screen 0 — Welcome / Value Framing
+- [x] Screen 1 — Primary Goal
+- [x] Screen 2 — Body Basics
+- [x] Screen 3 — Lifestyle Rhythm
+- [x] Screen 4 — Eating Style & Constraints
+- [x] Screen 5 — Craving Awareness
+- [x] Screen 6 — Tracking Style
+- [x] Screen 7 — Permissions & Integrations
+- [x] Screen 8 — Confirmation + First Prediction
+
 ### Screen 0 — Welcome / Value Framing (No inputs)
 **Purpose:** Set expectations + trust + wellness boundary.
 

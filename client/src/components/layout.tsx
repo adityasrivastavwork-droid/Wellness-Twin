@@ -17,6 +17,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     { href: "/analysis", icon: BarChart2, label: "Analysis" },
     { href: "/twin", icon: MessageCircle, label: "Ask Twin" },
     { href: "/strategy", icon: Map, label: "Plan" },
+    { href: "/profile", icon: User, label: "Profile" },
   ];
 
   // Close mobile menu on route change

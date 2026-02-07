@@ -9,6 +9,40 @@ import { useStore } from "@/lib/store";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useLocation } from "wouter";
+import { BodyMusclePreview } from "@/components/body-muscle-preview";
+
+const gymExercises = [
+  {
+    name: "Squats",
+    muscles: ["quads", "glutes", "core"],
+    guidance: ["Brace your core before each rep.", "Drive through mid-foot to protect knees."],
+  },
+  {
+    name: "Deadlift",
+    muscles: ["hamstrings", "glutes", "back", "core"],
+    guidance: ["Keep the bar close to your shins.", "Pause at the top to reset posture."],
+  },
+  {
+    name: "Bench Press",
+    muscles: ["chest", "triceps", "shoulders"],
+    guidance: ["Retract shoulder blades for stability.", "Lower with control to keep tension."],
+  },
+  {
+    name: "Overhead Press",
+    muscles: ["shoulders", "triceps", "core"],
+    guidance: ["Keep ribs down to avoid back strain.", "Press in a straight line over mid-foot."],
+  },
+  {
+    name: "Pull-Ups",
+    muscles: ["back", "biceps", "core"],
+    guidance: ["Lead with the chest for full range.", "Use a controlled lower."],
+  },
+  {
+    name: "Cycling",
+    muscles: ["quads", "hamstrings", "calves"],
+    guidance: ["Maintain steady cadence.", "Stay tall through the core."],
+  },
+];
 
 export default function LogPage() {
   const { addLog } = useStore();
@@ -17,6 +51,9 @@ export default function LogPage() {
   const [mealName, setMealName] = useState("");
   const [hungerLevel, setHungerLevel] = useState([3]);
   const [notes, setNotes] = useState("");
+  const [exerciseName, setExerciseName] = useState(gymExercises[0].name);
+  const [exerciseIntensity, setExerciseIntensity] = useState([3]);
+  const [exerciseDuration, setExerciseDuration] = useState("30");
 
   const handleSubmit = (type: 'meal' | 'hunger') => {
     addLog({
@@ -34,16 +71,41 @@ export default function LogPage() {
     setLocation("/");
   };
 
+  const handleGymSubmit = () => {
+    const exercise = gymExercises.find((item) => item.name === exerciseName);
+    addLog({
+      timestamp: new Date().toISOString(),
+      type: "movement",
+      value: {
+        exercise: exerciseName,
+        duration: exerciseDuration,
+        intensity: exerciseIntensity[0],
+        muscles: exercise?.muscles ?? [],
+      },
+      notes,
+    });
+
+    toast({
+      title: "Workout logged",
+      description: "Your twin will update recovery and muscle insights.",
+    });
+
+    setLocation("/analysis");
+  };
+
+  const selectedExercise = gymExercises.find((item) => item.name === exerciseName);
+
   return (
     <Layout>
       <div className="max-w-xl mx-auto">
         <h1 className="text-2xl font-display font-bold mb-6">Log Activity</h1>
         
         <Tabs defaultValue="meal" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="meal">Meal</TabsTrigger>
             <TabsTrigger value="hunger">Hunger</TabsTrigger>
             <TabsTrigger value="mood">Mood</TabsTrigger>
+            <TabsTrigger value="gym">Gym</TabsTrigger>
           </TabsList>
 
           <TabsContent value="meal" className="space-y-6 animate-in slide-in-from-bottom-5">
@@ -114,6 +176,67 @@ export default function LogPage() {
             <div className="text-center py-10 text-muted-foreground">
                 Mood logging coming soon in this prototype.
             </div>
+          </TabsContent>
+
+          <TabsContent value="gym" className="space-y-6">
+            <div className="space-y-3">
+              <Label>Select your workout</Label>
+              <div className="grid gap-2">
+                {gymExercises.map((exercise) => (
+                  <Button
+                    key={exercise.name}
+                    type="button"
+                    variant={exerciseName === exercise.name ? "default" : "outline"}
+                    onClick={() => setExerciseName(exercise.name)}
+                  >
+                    {exercise.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label>Duration (minutes)</Label>
+              <Input
+                value={exerciseDuration}
+                onChange={(e) => setExerciseDuration(e.target.value)}
+                placeholder="30"
+                className="h-12 text-lg"
+              />
+            </div>
+
+            <div className="space-y-4">
+              <Label>Intensity (1-5)</Label>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium w-6">{exerciseIntensity}</span>
+                <Slider
+                  value={exerciseIntensity}
+                  onValueChange={setExerciseIntensity}
+                  max={5}
+                  min={1}
+                  step={1}
+                  className="flex-1"
+                />
+              </div>
+            </div>
+
+            <BodyMusclePreview highlightedMuscles={selectedExercise?.muscles ?? []} />
+
+            <div className="rounded-xl border bg-muted/20 p-4">
+              <p className="text-sm font-semibold">Guidance</p>
+              <ul className="mt-2 list-disc pl-5 text-sm text-muted-foreground space-y-1">
+                {selectedExercise?.guidance.map((tip) => (
+                  <li key={tip}>{tip}</li>
+                ))}
+              </ul>
+            </div>
+
+            <Button
+              className="w-full h-12 text-lg rounded-xl"
+              onClick={handleGymSubmit}
+            >
+              Log Workout
+            </Button>
           </TabsContent>
         </Tabs>
       </div>
