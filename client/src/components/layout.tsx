@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Home, PenTool, MessageCircle, BarChart2, Map, Menu, X, User } from "lucide-react";
+import { Home, PenTool, BarChart2, Map, Menu, X, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
     { href: "/", icon: Home, label: "Dashboard" },
     { href: "/log", icon: PenTool, label: "Log" },
     { href: "/analysis", icon: BarChart2, label: "Analysis" },
-    { href: "/twin", icon: MessageCircle, label: "Ask Twin" },
     { href: "/strategy", icon: Map, label: "Plan" },
     { href: "/profile", icon: User, label: "Profile" },
   ];

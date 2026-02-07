@@ -11,9 +11,18 @@ export function BodyTimeline() {
     { time: '22:00', label: 'Sleep', type: 'sleep', confidence: 'high' },
   ];
 
+  const trendLayers = [
+    { label: "Water retention", value: 60, color: "bg-blue-400/70" },
+    { label: "Fat trend", value: 45, color: "bg-emerald-400/70" },
+    { label: "Muscle preservation", value: 75, color: "bg-purple-400/70" },
+  ];
+
   return (
     <div className="w-full">
-      <h3 className="text-lg font-semibold mb-4">Body Timeline</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-semibold">Body Timeline</h3>
+        <span className="text-xs text-muted-foreground">Confidence bands shown as dashed nodes</span>
+      </div>
       <ScrollArea className="w-full whitespace-nowrap rounded-xl border bg-card p-4">
         <div className="flex w-max space-x-8 p-4">
           {events.map((event, i) => (
@@ -41,6 +50,26 @@ export function BodyTimeline() {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
+
+      <div className="mt-4 grid gap-3 rounded-xl border bg-card p-4">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium">Trend layering</p>
+          <span className="text-xs text-muted-foreground">7-day blended view</span>
+        </div>
+        <div className="space-y-3">
+          {trendLayers.map((layer) => (
+            <div key={layer.label} className="space-y-1">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span>{layer.label}</span>
+                <span>{layer.value}%</span>
+              </div>
+              <div className="h-2 w-full rounded-full bg-muted">
+                <div className={`h-2 rounded-full ${layer.color}`} style={{ width: `${layer.value}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

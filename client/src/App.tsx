@@ -6,7 +6,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
 import LogPage from "@/pages/log";
-import TwinPage from "@/pages/twin";
 import AnalysisPage from "@/pages/analysis";
 import StrategyPage from "@/pages/strategy";
 import OnboardingPage from "@/pages/onboarding";
@@ -30,7 +29,6 @@ function Router() {
       <Route path="/onboarding" component={OnboardingPage} />
       <Route path="/" component={Dashboard} />
       <Route path="/log" component={LogPage} />
-      <Route path="/twin" component={TwinPage} />
       <Route path="/analysis" component={AnalysisPage} />
       <Route path="/strategy" component={StrategyPage} />
       <Route path="/profile" component={ProfilePage} />
