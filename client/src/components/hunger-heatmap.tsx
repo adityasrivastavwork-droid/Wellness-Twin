@@ -16,6 +16,12 @@ export function HungerHeatmap() {
     [1, 2, 2, 1], // Sun
   ];
 
+  const triggerInsights = [
+    { trigger: "Low sleep", window: "Tue midday", suggestion: "Front-load protein + fiber at breakfast" },
+    { trigger: "Stress spike", window: "Thu evening", suggestion: "Swap sugary snack for warm tea + 10-min walk" },
+    { trigger: "Long meeting blocks", window: "Fri evening", suggestion: "Pre-pack a 3pm snack window" },
+  ];
+
   const getColor = (val: number) => {
     if (val >= 8) return 'bg-destructive/80 text-destructive-foreground';
     if (val >= 5) return 'bg-amber-400/80 text-amber-900';
@@ -64,6 +70,21 @@ export function HungerHeatmap() {
         <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr] gap-1 mt-2 text-[10px] text-muted-foreground text-center">
           <div></div>
           {times.map(t => <div key={t}>{t}</div>)}
+        </div>
+
+        <div className="mt-6 space-y-3">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Trigger attributions</p>
+          <div className="grid gap-3">
+            {triggerInsights.map((insight) => (
+              <div key={insight.trigger} className="rounded-lg border bg-muted/30 p-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium">{insight.trigger}</p>
+                  <span className="text-xs text-muted-foreground">{insight.window}</span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-2">Counter-move: {insight.suggestion}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>

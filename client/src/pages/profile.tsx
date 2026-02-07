@@ -94,8 +94,11 @@ export default function ProfilePage() {
           <CardContent className="space-y-4">
             {[
               { label: "Connect steps/sleep (wearable)", key: "stepsSleep" },
+              { label: "Enable barcode scan + food DB", key: "barcodeScan" },
               { label: "Enable photo meal logging", key: "photoLogging" },
               { label: "Enable voice logging", key: "voiceLogging" },
+              { label: "Enable restaurant/menu imports", key: "restaurantImports" },
+              { label: "Enable optional CGM data", key: "cgmImports" },
               { label: "Offline-first mode", key: "offlineFirst" },
             ].map((option) => (
               <div key={option.key} className="flex items-center justify-between rounded-xl border p-3">
@@ -111,6 +114,17 @@ export default function ProfilePage() {
               </div>
             ))}
             <Button variant="outline">Save Changes</Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Missing-data handling</CardTitle>
+            <CardDescription>Gentle re-entry when logs are missing.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex items-center justify-between rounded-xl border p-3">
+            <span className="text-sm font-medium">Estimate continuity from passive signals</span>
+            <Switch defaultChecked />
           </CardContent>
         </Card>
       </div>

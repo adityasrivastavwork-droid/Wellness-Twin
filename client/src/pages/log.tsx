@@ -54,6 +54,14 @@ export default function LogPage() {
   const [exerciseName, setExerciseName] = useState(gymExercises[0].name);
   const [exerciseIntensity, setExerciseIntensity] = useState([3]);
   const [exerciseDuration, setExerciseDuration] = useState("30");
+  const [waterAmount, setWaterAmount] = useState("500");
+  const [weightEntry, setWeightEntry] = useState("");
+  const [cravingIntensity, setCravingIntensity] = useState([3]);
+  const [cravingTrigger, setCravingTrigger] = useState("");
+  const [sleepHours, setSleepHours] = useState("7");
+  const [sleepQuality, setSleepQuality] = useState([3]);
+  const [stressLevel, setStressLevel] = useState([3]);
+  const [moodLevel, setMoodLevel] = useState([3]);
 
   const handleSubmit = (type: 'meal' | 'hunger') => {
     addLog({
@@ -66,6 +74,31 @@ export default function LogPage() {
     toast({
       title: "Logged successfully",
       description: "Your twin is analyzing the impact...",
+    });
+
+    setLocation("/");
+  };
+
+  const handleMetricSubmit = (type: 'water' | 'weight' | 'craving' | 'sleep' | 'stress' | 'mood') => {
+    const payloadMap = {
+      water: { amountMl: Number(waterAmount) },
+      weight: { weight: weightEntry },
+      craving: { intensity: cravingIntensity[0], trigger: cravingTrigger },
+      sleep: { hours: Number(sleepHours), quality: sleepQuality[0] },
+      stress: { level: stressLevel[0] },
+      mood: { level: moodLevel[0] },
+    } as const;
+
+    addLog({
+      timestamp: new Date().toISOString(),
+      type,
+      value: payloadMap[type],
+      notes,
+    });
+
+    toast({
+      title: "Logged successfully",
+      description: "Your twin is updating your forecast windows.",
     });
 
     setLocation("/");
@@ -101,10 +134,15 @@ export default function LogPage() {
         <h1 className="text-2xl font-display font-bold mb-6">Log Activity</h1>
         
         <Tabs defaultValue="meal" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-4 md:grid-cols-8 mb-8">
             <TabsTrigger value="meal">Meal</TabsTrigger>
             <TabsTrigger value="hunger">Hunger</TabsTrigger>
+            <TabsTrigger value="water">Water</TabsTrigger>
+            <TabsTrigger value="weight">Weight</TabsTrigger>
+            <TabsTrigger value="craving">Cravings</TabsTrigger>
             <TabsTrigger value="mood">Mood</TabsTrigger>
+            <TabsTrigger value="sleep">Sleep</TabsTrigger>
+            <TabsTrigger value="stress">Stress</TabsTrigger>
             <TabsTrigger value="gym">Gym</TabsTrigger>
           </TabsList>
 
@@ -173,9 +211,151 @@ export default function LogPage() {
           </TabsContent>
 
           <TabsContent value="mood">
-            <div className="text-center py-10 text-muted-foreground">
-                Mood logging coming soon in this prototype.
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <Label>Mood / Focus (1-5)</Label>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-medium w-6">{moodLevel}</span>
+                  <Slider
+                    value={moodLevel}
+                    onValueChange={setMoodLevel}
+                    max={5}
+                    min={1}
+                    step={1}
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+              <Button
+                className="w-full h-12 text-lg rounded-xl"
+                onClick={() => handleMetricSubmit('mood')}
+              >
+                Log Mood
+              </Button>
             </div>
+          </TabsContent>
+
+          <TabsContent value="water" className="space-y-6">
+            <div className="space-y-2">
+              <Label>Water Intake (ml)</Label>
+              <Input
+                value={waterAmount}
+                onChange={(e) => setWaterAmount(e.target.value)}
+                placeholder="500"
+                className="h-12 text-lg"
+              />
+            </div>
+            <Button
+              className="w-full h-12 text-lg rounded-xl"
+              onClick={() => handleMetricSubmit('water')}
+            >
+              Log Water
+            </Button>
+          </TabsContent>
+
+          <TabsContent value="weight" className="space-y-6">
+            <div className="space-y-2">
+              <Label>Weight (optional)</Label>
+              <Input
+                value={weightEntry}
+                onChange={(e) => setWeightEntry(e.target.value)}
+                placeholder="e.g. 70 kg"
+                className="h-12 text-lg"
+              />
+            </div>
+            <Button
+              className="w-full h-12 text-lg rounded-xl"
+              onClick={() => handleMetricSubmit('weight')}
+            >
+              Log Weight
+            </Button>
+          </TabsContent>
+
+          <TabsContent value="craving" className="space-y-6">
+            <div className="space-y-2">
+              <Label>Trigger tag</Label>
+              <Input
+                value={cravingTrigger}
+                onChange={(e) => setCravingTrigger(e.target.value)}
+                placeholder="e.g. stress, boredom, social"
+                className="h-12 text-lg"
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Craving Intensity (1-5)</Label>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium w-6">{cravingIntensity}</span>
+                <Slider
+                  value={cravingIntensity}
+                  onValueChange={setCravingIntensity}
+                  max={5}
+                  min={1}
+                  step={1}
+                  className="flex-1"
+                />
+              </div>
+            </div>
+            <Button
+              className="w-full h-12 text-lg rounded-xl"
+              onClick={() => handleMetricSubmit('craving')}
+            >
+              Log Craving
+            </Button>
+          </TabsContent>
+
+          <TabsContent value="sleep" className="space-y-6">
+            <div className="space-y-2">
+              <Label>Sleep hours</Label>
+              <Input
+                value={sleepHours}
+                onChange={(e) => setSleepHours(e.target.value)}
+                placeholder="7"
+                className="h-12 text-lg"
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Sleep Quality (1-5)</Label>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium w-6">{sleepQuality}</span>
+                <Slider
+                  value={sleepQuality}
+                  onValueChange={setSleepQuality}
+                  max={5}
+                  min={1}
+                  step={1}
+                  className="flex-1"
+                />
+              </div>
+            </div>
+            <Button
+              className="w-full h-12 text-lg rounded-xl"
+              onClick={() => handleMetricSubmit('sleep')}
+            >
+              Log Sleep
+            </Button>
+          </TabsContent>
+
+          <TabsContent value="stress" className="space-y-6">
+            <div className="space-y-4">
+              <Label>Stress Level (1-5)</Label>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium w-6">{stressLevel}</span>
+                <Slider
+                  value={stressLevel}
+                  onValueChange={setStressLevel}
+                  max={5}
+                  min={1}
+                  step={1}
+                  className="flex-1"
+                />
+              </div>
+            </div>
+            <Button
+              className="w-full h-12 text-lg rounded-xl"
+              onClick={() => handleMetricSubmit('stress')}
+            >
+              Log Stress
+            </Button>
           </TabsContent>
 
           <TabsContent value="gym" className="space-y-6">

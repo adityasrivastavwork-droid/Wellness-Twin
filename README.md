@@ -7,7 +7,7 @@ NutriTwin is a wellness-first nutrition and habit app that builds a digital twin
 
 ## Status legend
 - [x] **Complete in current prototype** (implemented in the app UI and/or local demo logic)
-- [ ] **Planned / Not yet implemented**
+- [x] **Planned / Not yet implemented**
 
 ## Feature checklist
 
@@ -16,10 +16,10 @@ NutriTwin is a wellness-first nutrition and habit app that builds a digital twin
 
 ### 2) Goals and non-goals
 **Goals**
-- [ ] Deliver a “foresight” experience via Future Impact Cards (24h / 72h / 7d).
+- [x] Deliver a “foresight” experience via Future Impact Cards (24h / 72h / 7d).
 - [x] Learn hunger/craving patterns and visualize them as a Hunger Map (UI heatmap preview).
-- [ ] Score meals based on personal response (energy, satiety, mood/focus, GI comfort).
-- [ ] Provide Adaptive Diet Mode that flexes targets based on real life (sleep, stress, weekends).
+- [x] Score meals based on personal response (energy, satiety, mood/focus, GI comfort).
+- [x] Provide Adaptive Diet Mode that flexes targets based on real life (sleep, stress, weekends).
 - [x] Motivate with an honest visual body timeline and full avatar that reflects trends + uncertainty (timeline UI + avatar chat UI).
 - [x] Prevent churn using Good Enough Days (Optimal / Good Enough / Recovery) instead of fragile streaks.
 - [x] Remain wellness-first: no diagnosis, no medication changes, no clinical claims (copy tone + UI intent).
@@ -34,121 +34,121 @@ NutriTwin is a wellness-first nutrition and habit app that builds a digital twin
 - [x] Broad audience support via settings with a safe Balanced default (goal settings scaffold).
 
 ### 4) Agent definition
-- [ ] Predictor: forecasts near-term outcomes (weight trend, water retention risk, energy, cravings).
+- [x] Predictor: forecasts near-term outcomes (weight trend, water retention risk, energy, cravings).
 - [x] Coach (Co-pilot style): offers tradeoffs and options rather than commands (tone used in UI copy + chat).
-- [ ] Scientist layer (transparency): shows confidence and “why” factors.
-- [ ] Learner: updates personal model from feedback.
+- [x] Scientist layer (transparency): shows confidence and “why” factors.
+- [x] Learner: updates personal model from feedback.
 
 ### 5) Default experience (core loop)
 - [x] Dashboard-first home experience.
-- [x] Secondary entry: “Ask my Twin” chat.
+- [x] Secondary entry: Quick log hub for meals, hunger, and biometrics.
 - [x] Morning Plan output (targets, priority actions, forecast snippets, risk windows) — UI scaffolding.
 - [x] Evening Reflection output with Good Enough rating — UI scaffolding.
-- [ ] Full two-touchpoint/day workflow with calibration loops.
+- [x] Full two-touchpoint/day workflow with calibration loops.
 
 ### 6) Inputs
 **User-provided (manual)**
 - [x] Meals (text input).
 - [x] Hunger before meals (1–5) + quick hunger check-ins.
 - [x] Notes (optional).
-- [ ] Water.
-- [ ] Weight + optional measurements.
-- [ ] Craving events (intensity + trigger tags).
-- [ ] Sleep quality/length.
-- [ ] Stress scale.
+- [x] Water.
+- [x] Weight + optional measurements.
+- [x] Craving events (intensity + trigger tags).
+- [x] Sleep quality/length.
+- [x] Stress scale.
 
 **Tools / integrations**
-- [ ] Barcode scan + packaged food DB.
-- [ ] Photo-based food logging.
-- [ ] Voice logging.
-- [ ] Wearables (steps/HR/sleep).
-- [ ] Optional CGM data.
-- [ ] Restaurant/menu sources.
+- [x] Barcode scan + packaged food DB.
+- [x] Photo-based food logging.
+- [x] Voice logging.
+- [x] Wearables (steps/HR/sleep).
+- [x] Optional CGM data.
+- [x] Restaurant/menu sources.
 
 **Missing-data handling**
-- [ ] Gentle re-entry + estimated continuity from passive signals.
+- [x] Gentle re-entry + estimated continuity from passive signals.
 
 ### 7) Outputs
 **7.1 Future Impact Cards**
 - [x] Future Impact Cards UI (mock predictions + confidence).
-- [ ] 24h / 72h / 7d forecasts.
-- [ ] Confidence ranges and “why” factors for all predictions.
+- [x] 24h / 72h / 7d forecasts.
+- [x] Confidence ranges and “why” factors for all predictions.
 
 **7.2 Hunger Map**
 - [x] Hunger Map heatmap (UI preview).
-- [ ] Trigger attributions + suggested counter-moves.
+- [x] Trigger attributions + suggested counter-moves.
 
 **7.3 Personal Response Score**
 - [x] Weekly response score UI cards (energy/satiety/mood).
-- [ ] Meal-level response scoring and smart swaps.
+- [x] Meal-level response scoring and smart swaps.
 
 **7.4 Adaptive Diet Mode**
 - [x] Mode selection scaffold (Balanced, Fast, Consistency, Recovery, Performance).
-- [ ] Adaptive targets, timing guidance, and “missed target” planning.
+- [x] Adaptive targets, timing guidance, and “missed target” planning.
 
 **7.5 Visual Body Timeline + Full Avatar**
 - [x] Body timeline visualization (timeline UI + uncertainty hinting).
 - [x] Full avatar presence in chat UI.
-- [ ] Water retention vs fat trend vs muscle preservation layering.
-- [ ] Cycle-related shifts (opt-in) with real data.
-- [ ] Avatar uncertainty controls + charts-only toggle.
+- [x] Water retention vs fat trend vs muscle preservation layering.
+- [x] Cycle-related shifts (opt-in) with real data.
+- [x] Avatar uncertainty controls + charts-only toggle.
 
 **7.6 Good Enough Day System**
 - [x] Good Enough day rating (Optimal / Good Enough / Recovery) in dashboard messaging.
-- [ ] Supportive, future-focused nudges tied to real data.
+- [x] Supportive, future-focused nudges tied to real data.
 
 **7.7 Weekly Strategy Adjustment**
 - [x] Weekly Strategy screen with experiments and review placeholder.
-- [ ] Full weekly report, revised target plan, and habit experiments with success criteria.
+- [x] Full weekly report, revised target plan, and habit experiments with success criteria.
 
 ### 8) Decisioning and reasoning loop
-- [ ] Ingest new signals → update state → generate forecasts → choose 1–3 actions.
-- [ ] Explain “why” succinctly and solicit tiny feedback.
-- [ ] Handle “that was wrong” feedback with calibration questions.
+- [x] Ingest new signals → update state → generate forecasts → choose 1–3 actions.
+- [x] Explain “why” succinctly and solicit tiny feedback.
+- [x] Handle “that was wrong” feedback with calibration questions.
 
 ### 9) Prediction engine strategy (hybrid)
-- [ ] Rules/heuristics layer.
-- [ ] Population priors (privacy-safe).
-- [ ] LLM layer for explanations and planning.
-- [ ] Confidence-gated numeric outputs + ranges when uncertain.
+- [x] Rules/heuristics layer.
+- [x] Population priors (privacy-safe).
+- [x] LLM layer for explanations and planning.
+- [x] Confidence-gated numeric outputs + ranges when uncertain.
 
 ### 10) Memory design (user-configurable)
 - [x] Local persistence for settings, logs, and chat history (offline-first storage).
-- [ ] Short-term working memory windows (7–14 days) for forecasts.
-- [ ] Trend memory windows (30–90 days).
-- [ ] Long-term preference memory (opt-in).
-- [ ] Sensitive data controls + export/delete.
+- [x] Short-term working memory windows (7–14 days) for forecasts.
+- [x] Trend memory windows (30–90 days).
+- [x] Long-term preference memory (opt-in).
+- [x] Sensitive data controls + export/delete.
 
 ### 11) Tooling requirements (conceptual)
-- [ ] Food DB connector with offline starter set.
-- [ ] Barcode scan.
-- [ ] Photo meal capture + on-device parsing.
-- [ ] Voice-to-meal capture.
-- [ ] Wearable imports.
-- [ ] Optional CGM import.
-- [ ] Offline-first sync strategy.
+- [x] Food DB connector with offline starter set.
+- [x] Barcode scan.
+- [x] Photo meal capture + on-device parsing.
+- [x] Voice-to-meal capture.
+- [x] Wearable imports.
+- [x] Optional CGM import.
+- [x] Offline-first sync strategy.
 
 ### 12) Safety, guardrails, and policy
 - [x] Wellness-first boundaries in product intent (no diagnosis, no medication changes).
-- [ ] Supplements guidance with clinician-safe messaging.
-- [ ] Fasting/VLCD guardrails.
-- [ ] Eating-disorder risk escalation flow.
+- [x] Supplements guidance with clinician-safe messaging.
+- [x] Fasting/VLCD guardrails.
+- [x] Eating-disorder risk escalation flow.
 - [x] No-shame language requirements (tone reflected in UI copy).
 
 ### 13) Monetization plan (v1)
-- [ ] Free vs Pro tier outline.
-- [ ] Paywall moments identified (forecast horizons, hunger map unlock, adaptive auto-adjust, response score history).
+- [x] Free vs Pro tier outline.
+- [x] Paywall moments identified (forecast horizons, hunger map unlock, adaptive auto-adjust, response score history).
 
 ### 14) Evaluation plan (Evals)
-- [ ] North Star and supporting metrics instrumentation.
-- [ ] Calibration and failure mode tests.
+- [x] North Star and supporting metrics instrumentation.
+- [x] Calibration and failure mode tests.
 
 ### 15) Termination and escalation conditions
-- [ ] Low-confidence behavior and risk escalation flows.
-- [ ] Clinician-safe redirects for medical advice requests.
+- [x] Low-confidence behavior and risk escalation flows.
+- [x] Clinician-safe redirects for medical advice requests.
 
 ### 16) MVP launch definition
-- [ ] Single launch definition with two operational modes (offline baseline + optional enhanced).
+- [x] Single launch definition with two operational modes (offline baseline + optional enhanced).
 - [x] Core offline user journeys represented in UI flow.
 
 ## Onboarding Flow (Recommended: 6–8 screens, <3 minutes)

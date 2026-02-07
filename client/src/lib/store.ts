@@ -25,13 +25,16 @@ export interface ProfileData {
     photoLogging: boolean;
     voiceLogging: boolean;
     offlineFirst: boolean;
+    barcodeScan: boolean;
+    restaurantImports: boolean;
+    cgmImports: boolean;
   };
 }
 
 export interface LogEntry {
   id: string;
   timestamp: string; // ISO date string
-  type: 'meal' | 'hunger' | 'mood' | 'sleep' | 'stress' | 'movement';
+  type: 'meal' | 'hunger' | 'mood' | 'sleep' | 'stress' | 'movement' | 'water' | 'weight' | 'craving';
   value: any; // Flexible payload
   notes?: string;
   tags?: string[];
@@ -44,24 +47,15 @@ export interface UserSettings {
   onboardingCompleted: boolean;
 }
 
-export interface TwinMessage {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: string;
-}
-
 interface AppState {
   settings: UserSettings;
   profile: ProfileData;
   logs: LogEntry[];
-  chatHistory: TwinMessage[];
   
   // Actions
   updateSettings: (settings: Partial<UserSettings>) => void;
   updateProfile: (profile: Partial<ProfileData>) => void;
   addLog: (entry: Omit<LogEntry, 'id'>) => void;
-  addMessage: (message: Omit<TwinMessage, 'id' | 'timestamp'>) => void;
   resetData: () => void;
 }
 
@@ -90,12 +84,12 @@ export const useStore = create<AppState>()(
           photoLogging: false,
           voiceLogging: false,
           offlineFirst: true,
+          barcodeScan: false,
+          restaurantImports: false,
+          cgmImports: false,
         },
       },
       logs: seedLogs,
-      chatHistory: [
-        { id: '1', role: 'assistant', content: "Hi! I'm your NutriTwin. I'm here to help you understand your body's patterns. How are you feeling right now?", timestamp: new Date().toISOString() }
-      ],
 
       updateSettings: (newSettings) => set((state) => ({ 
         settings: { ...state.settings, ...newSettings } 
@@ -109,11 +103,7 @@ export const useStore = create<AppState>()(
         logs: [...state.logs, { ...entry, id: Math.random().toString(36).substring(7), timestamp: entry.timestamp || new Date().toISOString() }] 
       })),
 
-      addMessage: (message) => set((state) => ({
-        chatHistory: [...state.chatHistory, { ...message, id: Math.random().toString(36).substring(7), timestamp: new Date().toISOString() }]
-      })),
-
-      resetData: () => set({ logs: [], chatHistory: [] }),
+      resetData: () => set({ logs: [] }),
     }),
     {
       name: 'nutritwin-storage',

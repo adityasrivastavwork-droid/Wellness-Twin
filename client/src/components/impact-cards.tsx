@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Zap, Brain, Moon, ArrowRight, TrendingUp, TrendingDown, AlertCircle } from "lucide-react";
+import { Brain, TrendingUp, TrendingDown, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -9,30 +9,45 @@ interface Prediction {
   score: number; // 0-100
   label: string;
   confidence: 'High' | 'Medium' | 'Low';
+  range: string;
   factors: string[];
+  guidance: string;
 }
 
 export function ImpactCards() {
   // Mock predictions based on "offline inference"
   const predictions: Prediction[] = [
     {
-      timeframe: "Next 4 Hours",
-      score: 45,
-      label: "Energy Dip Likely",
-      confidence: "High",
-      factors: ["Poor sleep last night", "High carb breakfast"]
+      timeframe: "Next 24 Hours",
+      score: 62,
+      label: "Steady Energy Window",
+      confidence: "Medium",
+      range: "Energy 55–70",
+      factors: ["Balanced lunch yesterday", "Moderate steps", "Evening stress trending down"],
+      guidance: "Keep dinner protein-forward to extend the stable window."
     },
     {
-      timeframe: "Tomorrow Morning",
-      score: 80,
-      label: "High Readiness",
-      confidence: "Medium",
-      factors: ["Recovery trend improving"]
+      timeframe: "Next 72 Hours",
+      score: 48,
+      label: "Craving Risk Window",
+      confidence: "Low",
+      range: "Craving risk 40–60",
+      factors: ["Sleep debt building", "Late caffeine", "High-carb snack pattern"],
+      guidance: "Plan a 3pm protein snack + hydrate before cravings peak."
+    },
+    {
+      timeframe: "Next 7 Days",
+      score: 74,
+      label: "Recovery Trending Up",
+      confidence: "High",
+      range: "Readiness 68–82",
+      factors: ["Workout load steady", "Weekend recovery time", "Stress baseline improving"],
+      guidance: "Keep two low-intensity days to protect the trend."
     }
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-4 md:grid-cols-3">
       {predictions.map((pred, i) => (
         <motion.div
           key={i}
@@ -48,16 +63,19 @@ export function ImpactCards() {
               "absolute inset-0 opacity-5 pointer-events-none",
               pred.score > 70 ? "bg-emerald-500" : pred.score < 50 ? "bg-amber-500" : "bg-blue-500"
             )} />
-            <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-                {pred.timeframe}
-              </CardTitle>
-              <Badge variant="outline" className={cn(
-                "text-[10px] px-2 py-0.5 h-auto font-normal",
-                pred.confidence === 'Low' && "border-amber-200 text-amber-700 bg-amber-50"
-              )}>
-                {pred.confidence} Confidence
-              </Badge>
+            <CardHeader className="pb-2 flex flex-col gap-2">
+              <div className="flex flex-row items-center justify-between space-y-0">
+                <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                  {pred.timeframe}
+                </CardTitle>
+                <Badge variant="outline" className={cn(
+                  "text-[10px] px-2 py-0.5 h-auto font-normal",
+                  pred.confidence === 'Low' && "border-amber-200 text-amber-700 bg-amber-50"
+                )}>
+                  {pred.confidence} Confidence
+                </Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">{pred.range}</p>
             </CardHeader>
             <CardContent>
               <div className="flex items-end justify-between mb-4">
@@ -79,6 +97,11 @@ export function ImpactCards() {
                     </span>
                   ))}
                 </div>
+              </div>
+
+              <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
+                <AlertCircle className="mt-0.5 h-4 w-4 text-primary" />
+                <span>{pred.guidance}</span>
               </div>
             </CardContent>
           </Card>
